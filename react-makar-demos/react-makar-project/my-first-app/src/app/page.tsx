@@ -1,6 +1,82 @@
+"use client"; // This line is used to enable client-side only code
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useState } from "react";
+//data
+const user = {
+  name: "John Doe",
+  imageUrl: "https://example.com/image.jpg",
+  bio: false,
+  content: <ContentViewLaoWang />,
+};
+const userDataList = [
+  {
+    name: "John Doe",
+    gender: "male",
+    age: 25,
+  },
+  {
+    name: "Dome",
+    gender: "female",
+    age: 20,
+  },
+];
+// component
+function UserListData() {
+  const data = userDataList.map((user) => {
+    return (
+      <div key={user.name}>
+        <li
+          style={{
+            color: "orange",
+          }}
+        >
+          {user.name}
+        </li>
+        <li key={user.gender}>{user.gender}</li>
+        <li key={user.age}>{user.age}</li>
+      </div>
+    );
+  });
+  return <ul>{data}</ul>;
+}
+function MyButton() {
+  const [count, setCount] = useState(0);
+  function handleClick() {
+    setCount(count + 1);
+    console.log("Button clicked!");
+  }
+  return (
+    <>
+      <button className={styles.button} onClick={handleClick}>
+        Click me!
+      </button>
+      <p>You clicked {count} times</p>
+    </>
+  );
+}
+function ContentViewLaoWang() {
+  return (
+    <div>
+      <h1>AAAAAAAAAAAAAAAAAA建材老王</h1>
+    </div>
+  );
+}
+function ContentViewLaoYe() {
+  return (
+    <div>
+      <h1>AAAAAAAAAAAAAAAAAA建材老叶</h1>
+    </div>
+  );
+}
 
+if (user.bio) {
+  user.name = "John Doe";
+  user.content = <ContentViewLaoWang />;
+} else {
+  user.name = "Dome";
+  user.content = <ContentViewLaoYe />;
+}
 export default function Home() {
   return (
     <div className={styles.page}>
@@ -13,6 +89,16 @@ export default function Home() {
           height={38}
           priority
         />
+        <div>
+          <p>Welcome to my-first-app!</p>
+          <MyButton />
+          <p>my name is {user.name}</p>
+          {user.content}
+          <UserListData />
+        </div>
+        <h2>Quick start</h2>
+        <h1>Getting started</h1>
+        <h1>Customizing your app</h1>
         <ol>
           <li>
             Get started by editing <code>src/app/page.tsx</code>.
